@@ -26,4 +26,8 @@ public class FlightsController {
     public List<Flights> getAllObjects() {
         return objectRepository.findAll();
     }
+
+//    @GetMapping("/tickets")
+//    public
+
 }

@@ -1,0 +1,5 @@
+com/example/demo/controller/WordsController.class
+com/example/demo/model/Flights.class
+com/example/demo/controller/FlightsController.class
+com/example/demo/ServerApplication.class
+com/example/demo/repository/ItemRepository.class

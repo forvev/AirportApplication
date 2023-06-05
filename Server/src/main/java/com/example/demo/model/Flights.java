@@ -3,19 +3,16 @@ package com.example.demo.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Set;
+
 @Document("flights")
 public class Flights {
     @Id
     private String id;
 
-    private String operatingAirline;
-    private String iataCode;
-    private String aircraftModelNameComboBox;
-    private String flightNumber;
-    private String departureAirport;
-    private String arrivalAirport;
-    private String departureTerminal;
+    private String operatingAirline, iataCode, aircraftModelNameComboBox,flightNumber, departureAirport, arrivalAirport, departureTerminal;
 
+    private Set<Seat> flight_seats;
     public Flights(String id, String operatingAirline, String iataCode, String aircraftModelNameComboBox, String flightNumber, String departureAirport, String arrivalAirport, String departureTerminal) {
         super();
         this.id = id;

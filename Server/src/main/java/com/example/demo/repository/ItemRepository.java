@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+//This interface is responsible for CRUD operations
 @Repository
 @EnableMongoRepositories
 public interface ItemRepository extends MongoRepository<Flights, String> {
