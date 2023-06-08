@@ -15,11 +15,15 @@ public class Seat {
     private int column;
     private char row;
 
-    public Seat(SeatClass seatClass, boolean isEmergencySeat, int column, char row) {
+    private boolean isReserved;
+
+    public Seat(SeatClass seatClass, boolean isEmergencySeat, int column, char row, boolean isReserved) {
         this.seatClass = seatClass;
         this.isEmergencySeat = isEmergencySeat;
         this.column = column;
         this.row = row;
+        this.isReserved = isReserved;
+
     }
 
     @Override
@@ -30,5 +34,9 @@ public class Seat {
                 ", column=" + column +
                 ", row=" + row +
                 '}';
+    }
+
+    public boolean isReserved() {
+        return isReserved;
     }
 }

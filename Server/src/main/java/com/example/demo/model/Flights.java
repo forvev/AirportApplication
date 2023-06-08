@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,12 +9,11 @@ import java.util.Set;
 @Document("flights")
 public class Flights {
     @Id
-    private String id;
-
+    private ObjectId id;
     private String operatingAirline, iataCode, aircraftModelNameComboBox,flightNumber, departureAirport, arrivalAirport, departureTerminal;
 
     private Set<Seat> flight_seats;
-    public Flights(String id, String operatingAirline, String iataCode, String aircraftModelNameComboBox, String flightNumber, String departureAirport, String arrivalAirport, String departureTerminal) {
+    public Flights(ObjectId id, String operatingAirline, String iataCode, String aircraftModelNameComboBox, String flightNumber, String departureAirport, String arrivalAirport, String departureTerminal, Set<Seat> flight_seats) {
         super();
         this.id = id;
         this.operatingAirline = operatingAirline;
@@ -23,13 +23,14 @@ public class Flights {
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
         this.departureTerminal = departureTerminal;
+        this.flight_seats = flight_seats;
     }
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -87,5 +88,13 @@ public class Flights {
 
     public String getDepartureTerminal() {
         return departureTerminal;
+    }
+
+    public Set<Seat> getFlight_seats() {
+        return flight_seats;
+    }
+
+    public void setFlight_seats(Set<Seat> flight_seats) {
+        this.flight_seats = flight_seats;
     }
 }
