@@ -33,10 +33,47 @@ public class Seat {
                 ", isEmergencySeat=" + isEmergencySeat +
                 ", column=" + column +
                 ", row=" + row +
+                ", isReserved=" + isReserved +
                 '}';
     }
 
     public boolean isReserved() {
         return isReserved;
+    }
+
+    public SeatClass getSeatClass() {
+        return seatClass;
+    }
+
+    public void setSeatClass(SeatClass seatClass) {
+        this.seatClass = seatClass;
+    }
+
+    public boolean isEmergencySeat() {
+        return isEmergencySeat;
+    }
+
+    public void setEmergencySeat(boolean emergencySeat) {
+        isEmergencySeat = emergencySeat;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public char getRow() {
+        return row;
+    }
+
+    public void setRow(char row) {
+        this.row = row;
+    }
+
+    public void setReserved(boolean reserved) {
+        isReserved = reserved;
     }
 }

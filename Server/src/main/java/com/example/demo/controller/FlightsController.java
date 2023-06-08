@@ -9,6 +9,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 @ComponentScan
 @RestController
 // you specify the origins that are allowed to access the resources (security reasons)
@@ -32,12 +35,26 @@ public class FlightsController {
         return objectRepository.findAll();
     }
 
-    //check if the seat is reserved by row and column
-    @GetMapping("/{id}/{rowNo}/{columnNo}")
-    public boolean checkIfReserved(@PathVariable ObjectId id, @PathVariable char rowNo, @PathVariable int columnNo){
-        Seat mySeat = objectRepository.is_seat_reserved_in_plane(id, rowNo, columnNo);
+    @GetMapping("/flights/{id}")
+    public Optional<Flights> findById(@PathVariable String id){
+        System.out.println("id: "+id);
+        return objectRepository.findById(id);
+    }
 
-        return mySeat.isReserved();
+    //check if the seat is reserved by row and column
+    @GetMapping("/flights/{id}/{rowNo}/{columnNo}")
+    public boolean checkIfReserved(@PathVariable String id, @PathVariable String rowNo, @PathVariable String columnNo){
+        Flights myFlight = objectRepository.is_seat_reserved_in_plane(id, rowNo, columnNo);
+
+        Set<Seat> mySeats = myFlight.getFlight_seats();
+
+        for(Seat seat: mySeats){
+            System.out.println(seat.toString());
+            if(seat.getRow() == rowNo.charAt(0) && seat.getColumn() == Integer.parseInt(columnNo)) {
+                return seat.isReserved();
+            }
+        }
+        return false;
     }
 
     @GetMapping("/test")

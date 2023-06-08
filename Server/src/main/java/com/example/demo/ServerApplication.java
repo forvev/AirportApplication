@@ -41,9 +41,24 @@ public class ServerApplication implements CommandLineRunner {
 		ObjectId myid = new ObjectId();
 
 		Set <Seat> seats = createSeats(1);
-		flightItemRepo.save(new Flights(myid,"test", "223",
-				"AC", "2234", "Warsaw",
+		flightItemRepo.save(new Flights(myid,"LOT", "223",
+				"777", "2234", "Warsaw",
 				"Frankfurt", "2", seats));
+
+		myid = new ObjectId();
+		flightItemRepo.save(new Flights(myid,"Lufthansa", "542",
+				"777", "2314", "New York",
+				"Madrid", "1", seats));
+
+		myid = new ObjectId();
+		flightItemRepo.save(new Flights(myid,"Qatar Airlines", "111",
+				"777", "3467", "Barcelona",
+				"Paris", "11", seats));
+
+		myid = new ObjectId();
+		flightItemRepo.save(new Flights(myid,"Fly Emirates", "231",
+				"777", "1234", "Moscow",
+				"Berlin", "6", seats));
 
 		System.out.println("Done");
 	}

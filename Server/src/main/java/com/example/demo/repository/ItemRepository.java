@@ -23,8 +23,9 @@ public interface ItemRepository extends MongoRepository<Flights, String> {
     @Query(value="{category:'?0'}", fields="{'name' : 1, 'quantity' : 1}")
     List<Flights> findAll(String category);
 
-    @Query("{_id: '?0'}")
-    Seat is_seat_reserved_in_plane(ObjectId id, char rowNo, int columnNo);
+    @Query("{_id: '?0'}")//, 'flight_seats.column': ?2}")
+    Flights is_seat_reserved_in_plane(String id, String rowNo, String columnNo);
+
 
     public long count();
 }
