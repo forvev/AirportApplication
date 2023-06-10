@@ -7,9 +7,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 //This interface is responsible for CRUD operations
 @Repository
@@ -26,6 +28,8 @@ public interface ItemRepository extends MongoRepository<Flights, String> {
     @Query("{_id: '?0'}")//, 'flight_seats.column': ?2}")
     Flights is_seat_reserved_in_plane(String id, String rowNo, String columnNo);
 
+//    @Query("{_id: '?0'}")
+//    public Optional<Flights> findById(String id);
 
     public long count();
 }

@@ -6,6 +6,7 @@ import com.example.demo.repository.ItemRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class FlightsController {
 
     //This annotation tells Spring to inject an instance of the ItemRepository
     // into the objectRepository field. By using @Autowired, you don't need to explicitly
-    // create an instance of ItemRepository or manually wire the dependency. Spring will handle
+    // create an instance of ItmRepository or manually wire the dependency. Spring will handle
     // the dependency injection for you.
     @Autowired
     private final ItemRepository objectRepository;
@@ -32,13 +33,38 @@ public class FlightsController {
 
     @GetMapping("/flights")
     public List<Flights> getAllObjects() {
-        return objectRepository.findAll();
+        List<Flights> tempList = objectRepository.findAll();
+
+        List<Flights> myList;
+
+        for(Flights flight: tempList){
+            System.out.println("id:"+flight.getId());
+        }
+
+        return tempList;
     }
 
+//    @GetMapping("/flights/{id}")
+//    public Flights findById(@PathVariable String id){
+//        System.out.println("id: "+id);
+//
+//        Optional<Flights> tempOpt = objectRepository.findById(id);
+//
+//        Flights myFlight = tempOpt.get();
+//        ResponseEn
+//        return myFlight;
+//    }
+
     @GetMapping("/flights/{id}")
-    public Optional<Flights> findById(@PathVariable String id){
-        System.out.println("id: "+id);
-        return objectRepository.findById(id);
+    public ResponseEntity<Flights> findById(@PathVariable String id) {
+        Optional<Flights> tempOpt = objectRepository.findById(id);
+
+        if (tempOpt.isPresent()) {
+            Flights flight = tempOpt.get();
+            return ResponseEntity.ok(flight);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     //check if the seat is reserved by row and column

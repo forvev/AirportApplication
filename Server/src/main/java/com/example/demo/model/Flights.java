@@ -9,11 +9,11 @@ import java.util.Set;
 @Document("flights")
 public class Flights {
     @Id
-    private ObjectId id;
+    private String id;
     private String operatingAirline, iataCode, aircraftModelNameComboBox,flightNumber, departureAirport, arrivalAirport, departureTerminal;
 
     private Set<Seat> flight_seats;
-    public Flights(ObjectId id, String operatingAirline, String iataCode, String aircraftModelNameComboBox, String flightNumber, String departureAirport, String arrivalAirport, String departureTerminal, Set<Seat> flight_seats) {
+    public Flights(String id, String operatingAirline, String iataCode, String aircraftModelNameComboBox, String flightNumber, String departureAirport, String arrivalAirport, String departureTerminal, Set<Seat> flight_seats) {
         super();
         this.id = id;
         this.operatingAirline = operatingAirline;
@@ -26,11 +26,11 @@ public class Flights {
         this.flight_seats = flight_seats;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
