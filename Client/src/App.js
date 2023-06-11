@@ -1,12 +1,16 @@
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
+import { Route, Routes, Navigate } from "react-router-dom";
 import ReactDOM from "react-dom";
 import "./App.css";
-// import "./components/Table.js";
-import Table from "./components/Table.js";
+import Table from "./components/Table/Table";
+import Seats from "./components/Seats/Seats";
 
-const App = () => {
-  ReactDOM.render(<Table />, document.getElementById("root"));
-};
+function App() {
+  return (
+    <Routes>
+      <Route path="/" exact element={<Table />} />
+      <Route path="/seats" exact element={<Seats />} />
+    </Routes>
+  );
+}
 
 export default App;

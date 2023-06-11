@@ -46,3 +46,12 @@ td {
 .editButton:hover {
   background-color: rgb(35, 102, 146);
 }
+
+.noPadding {
+  padding: 0px;
+}
+
+a {
+  display: block;
+  height: 4vh;
+}
