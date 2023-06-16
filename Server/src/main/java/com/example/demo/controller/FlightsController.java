@@ -31,6 +31,7 @@ public class FlightsController {
         this.objectRepository = objectRepository;
     }
 
+    //todo: if there are no seats left don't return the flight or send a message!
     @GetMapping("/flights")
     public List<Flights> getAllObjects() {
         List<Flights> tempList = objectRepository.findAll();
@@ -44,21 +45,9 @@ public class FlightsController {
         return tempList;
     }
 
-//    @GetMapping("/flights/{id}")
-//    public Flights findById(@PathVariable String id){
-//        System.out.println("id: "+id);
-//
-//        Optional<Flights> tempOpt = objectRepository.findById(id);
-//
-//        Flights myFlight = tempOpt.get();
-//        ResponseEn
-//        return myFlight;
-//    }
-
     @GetMapping("/flights/{id}")
     public ResponseEntity<Flights> findById(@PathVariable String id) {
         Optional<Flights> tempOpt = objectRepository.findById(id);
-
         if (tempOpt.isPresent()) {
             Flights flight = tempOpt.get();
             return ResponseEntity.ok(flight);
@@ -75,7 +64,6 @@ public class FlightsController {
         Set<Seat> mySeats = myFlight.getFlight_seats();
 
         for(Seat seat: mySeats){
-            System.out.println(seat.toString());
             if(seat.getRow() == rowNo.charAt(0) && seat.getColumn() == Integer.parseInt(columnNo)) {
                 return seat.isReserved();
             }
@@ -83,8 +71,43 @@ public class FlightsController {
         return false;
     }
 
+    @PutMapping("/flights/changeStatus/{id}/{row}/{column}")
+    public ResponseEntity<String> changeReservationStatus( @PathVariable String id, @PathVariable String row, @PathVariable String column){
+        System.out.println("I am in the change status!");
+        Optional<Flights> tempList = objectRepository.findById(id);
+
+        Flights myFlight = tempList.get();
+
+        Set <Seat> mySeats = myFlight.getFlight_seats();
+
+        for (Seat seat: mySeats) {
+            if (seat.getRow() == row.charAt(0) && seat.getColumn() == Integer.parseInt(column)) {
+                seat.setReserved(true);
+            }
+        }
+        return ResponseEntity.ok("Seat status changed successfully");
+    }
+
     @GetMapping("/test")
     public String test(){ return "it works";}
 
 
+    private class ChangeStatusRequest {
+        private String row;
+        private String column;
+        private String id;
+
+        public String getRow() {
+            return row;
+        }
+
+        public String getColumn() {
+            return column;
+        }
+
+        public String getId() {
+            return id;
+        }
+    }
 }
+
