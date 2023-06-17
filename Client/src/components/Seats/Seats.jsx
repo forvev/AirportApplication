@@ -10,6 +10,30 @@ const Table = () => {
     const nameOfRow = ["A", "B", "C", "D", "E", "F", "G", "H"];
     const idOfFlight = localStorage.getItem("id");
 
+
+    const handleConfirmReservation = (idCheck) => {
+
+        const tab = idCheck.split("-");
+        const shouldReserve = window.confirm('Would you like to book seat ' + tab[0] + tab[1] + " on a flight from " + object.
+            departureAirport + " to " + object.
+                arrivalAirport);
+        if (shouldReserve) {
+            const fetchData = async () => {
+                try {
+                    const response = await axios.put(
+
+                        "http://localhost:8080/api/flights/changeStatus/" + idOfFlight + "/" + tab[0] + "/" + tab[1]
+                    );
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+            fetchData();
+            window.location.reload();
+        }
+    };
+
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -50,11 +74,14 @@ const Table = () => {
 
     const renderObjectValue = () => {
         const handleCheckboxChange = (idCheck) => {
-            setCheckedStatus((prevStatus) => ({//change this to request to database
+            setCheckedStatus((prevStatus) => ({
                 ...prevStatus,
                 [idCheck]: !prevStatus[idCheck],
             }));
         };
+
+
+
         const tableRows = [];
         for (let i = 0; i < 8; i++) {
             const tableColumns = [];
@@ -63,12 +90,20 @@ const Table = () => {
                 const idCheck = nameOfRow[i] + "-" + j;
                 tableColumns.push(
                     <td key={j + 1} className="seatsTd">
-                        <input
+
+                        {!checkedStatus[idCheck] ? (
+                            <input type="checkbox" id={idCheck}
+                                checked={checkedStatus[idCheck] || false}
+                                onChange={() => handleConfirmReservation(idCheck)} />
+                        ) : (<input
                             type="checkbox"
                             id={idCheck}
-                            checked={checkedStatus[idCheck] || false}
+                            disabled
+                            className={checkedStatus[idCheck] ? 'reserved-checkbox' : ''}
                             onChange={() => handleCheckboxChange(idCheck)}
                         />
+                        )}
+
                     </td>
                 );
             }
@@ -79,6 +114,9 @@ const Table = () => {
 
     return (
         <div className="plane">
+
+            <center><h2>Reservation of seats for a flight from {object.departureAirport} to {object.arrivalAirport} </h2></center>
+
             <table className="seatsTableHeaders">
                 <thead>
                     <tr className="seatsTr">{renderObjectFields()}</tr>

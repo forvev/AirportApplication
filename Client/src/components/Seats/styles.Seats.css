@@ -73,3 +73,13 @@ tbody .seatsTr:nth-of-type(even) {
     text-decoration: none;
 
 }
+
+.reserved-checkbox {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid red;
+    border-radius: 3px;
+    background-color: red;
+    cursor: not-allowed;
+}
