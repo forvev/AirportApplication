@@ -82,9 +82,11 @@ public class FlightsController {
 
         for (Seat seat: mySeats) {
             if (seat.getRow() == row.charAt(0) && seat.getColumn() == Integer.parseInt(column)) {
+                System.out.println("the seat has been changed: "+seat.getRow()+" column: "+seat.getColumn());
                 seat.setReserved(true);
             }
         }
+        objectRepository.save(myFlight);
         return ResponseEntity.ok("Seat status changed successfully");
     }
 

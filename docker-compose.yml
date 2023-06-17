@@ -1,11 +1,14 @@
 version: "3.7"
+
 services:
+
   app:
     build: ./Client
     ports: 
       - 3000:3000
     depends_on:
       - api_service
+
   api_service:
     build: ./Server
     restart: always
@@ -13,6 +16,7 @@ services:
       - 8080:8080
     depends_on:
       - mongo_db
+
   mongo_db:
     image: mongo:latest
     restart: always
